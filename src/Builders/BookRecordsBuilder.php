@@ -29,14 +29,26 @@ class BookRecordsBuilder
         return $html;
     }
 
+    /**
+     * No content information
+     * 
+     * @return string 
+     */
     private function noContent(): string
     {
         return '
-        <tr colspan="7">
-            <td>Brak informacji</td>
+        <tr>
+            <td colspan="8">Brak informacji <a href="/adress/add/" class="btn btn-primary">Dodaj adres</a></td>
         </tr>';
     }
 
+    /**
+     * Build record list item
+     *
+     * @param BookRecord $bookRecord Book record dto
+     *
+     * @return string 
+     */
     public function buildRecordListItem(BookRecord $bookRecord): string
     {
         $updatedAt = (\is_null($bookRecord->updatedAt))

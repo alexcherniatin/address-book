@@ -5,9 +5,17 @@ namespace AddressBook\Models;
 use AddressBook\Core\Model;
 use AddressBook\Dto\BookRecord;
 
+/**
+ * Class for manipulating book records data in database
+ */
 final class BookRecords extends Model
 {
-    private $allowedSearchFields = [
+    /**
+     * Allowed table search fields
+     *
+     * @var array 
+     */
+    private array $allowedSearchFields = [
         'id',
         'first_name',
         'last_name',
@@ -16,7 +24,12 @@ final class BookRecords extends Model
         'phone',
     ];
 
-    public function migrate()
+    /**
+     * Create table
+     *
+     * @return void 
+     */
+    public function migrate(): void
     {
         $query = "CREATE TABLE IF NOT EXISTS book_records (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,10 +41,19 @@ final class BookRecords extends Model
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
             updated_at TIMESTAMP NULL
         );";
+
         $this->db->query($query);
+
         $this->db->execute();
     }
 
+    /**
+     * Insert new book record
+     *
+     * @param BookRecord $bookRecord Book record dto
+     *
+     * @return int Created record id
+     */
     public function insert(BookRecord $bookRecord): int
     {
         $query = "INSERT INTO book_records
@@ -49,6 +71,13 @@ final class BookRecords extends Model
         return ($result) ? $this->db->lastInsertId() : 0;
     }
 
+    /**
+     * Update book record
+     *
+     * @param BookRecord $bookRecord Book record dto
+     *
+     * @return bool
+     */
     public function update(BookRecord $bookRecord): bool
     {
         $query = "UPDATE book_records
@@ -72,16 +101,32 @@ final class BookRecords extends Model
         return $result;
     }
 
+    /**
+     * Get all records
+     *
+     * @return array<BookRecord>
+     */
     public function all(): array
     {
         $query = "SELECT id,first_name,last_name,address,phone,email,created_at,updated_at
         FROM book_records
-        ORDER BY id DESC";
+        ORDER BY id DESC
+        LIMIT 500";
         $this->db->query($query);
         $result = $this->db->resultset();
         return ($result) ? array_map(fn ($row) => BookRecord::fromArray($row), $result) : [];
     }
 
+    /**
+     * Get record by field
+     *
+     * @param string $field The name of the field
+     * @param int|string $value The value of the field
+     *
+     * @throws AddressBookException
+     * 
+     * @return ?BookRecord
+     */
     public function byField(string $field, int|string $value): ?BookRecord
     {
         if (!in_array($field, $this->allowedSearchFields)) {

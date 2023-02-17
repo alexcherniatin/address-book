@@ -4,6 +4,11 @@ namespace AddressBook\Core;
 
 class Router
 {
+    /**
+     * Boot application
+     * 
+     * @return void 
+     */
     public static function boot(): void
     {
         $controllerName = 'Main';
@@ -45,6 +50,11 @@ class Router
         $controller->$action();
     }
 
+    /**
+     * Show 404 error
+     * 
+     * @return void 
+     */
     public static function error404(): void
     {
         header('HTTP/1.0 404 Not Found');
@@ -56,6 +66,13 @@ class Router
         exit();
     }
 
+    /**
+     * Get part of the URL
+     *
+     * @param int $index Position index
+     *
+     * @return ?string 
+     */
     public static function getUrlPart(int $index): ?string
     {
         $uri = explode('?', $_SERVER['REQUEST_URI']);

@@ -7,7 +7,12 @@ use AddressBook\Models\BookRecords;
 
 class Controller_Main extends Controller
 {
-    public function index()
+    /**
+     * Main page /
+     * 
+     * @return void 
+     */
+    public function index(): void
     {
         View::render(
             'main/index',

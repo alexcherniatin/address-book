@@ -2,6 +2,11 @@
 
 namespace AddressBook\Core;
 
+/**
+ * 
+ * Basic pdo wrapper configured to connect to sqlite database
+ * 
+ */
 class Database
 {
     private $handler;
@@ -41,6 +46,7 @@ class Database
     public static function getInstance(): Database
     {
         $cls = static::class;
+        
         if (!isset(self::$instances[$cls])) {
             self::$instances[$cls] = new static();
         }

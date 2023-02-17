@@ -2,6 +2,9 @@
 
 namespace AddressBook\Dto;
 
+/**
+ * Book record DTO
+ */
 final class BookRecord
 {
     public ?int $id;
@@ -39,6 +42,13 @@ final class BookRecord
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * Create BookRecord DTO from array
+     *
+     * @param array $data
+     *
+     * @return BookRecord 
+     */
     public static function fromArray(array $data): BookRecord
     {
         return new self(

@@ -2,8 +2,19 @@
 
 namespace AddressBook\Core;
 
+/**
+ * Basic abstract controller
+ */
 abstract class Controller
 {
+    /**
+     * Show json response
+     *
+     * @param array $body The body of response
+     * @param int $code The http code of response
+     *
+     * @return void 
+     */
     public function response(array $body, int $code = 200): void
     {
         $httpStatusCodeDetails = $this->httpStatusCodeDetails($code);
@@ -15,6 +26,13 @@ abstract class Controller
         echo json_encode($body);
     }
 
+    /**
+     * Get http status by code
+     *
+     * @param int $code The http code
+     *
+     * @return array 
+     */
     private function httpStatusCodeDetails(int $code): array
     {
         $statuses = [

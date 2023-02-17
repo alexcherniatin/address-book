@@ -2,6 +2,10 @@
 
 namespace AddressBook\Core;
 
+/**
+ * Basic abstact model
+ *
+ */
 abstract class Model
 {
     protected $db;
