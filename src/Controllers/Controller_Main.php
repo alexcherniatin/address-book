@@ -1,13 +1,15 @@
 <?php
 
 use AddressBook\Core\Controller;
+use AddressBook\Core\View;
+use AddressBook\Models\BookRecord;
 
 class Controller_Main extends Controller
 {
     public function index()
     {
-        return $this->response([
-            'message' => '123'
-        ]);
+        $model = new BookRecord();
+        
+        View::render('main/index');
     }
 }
