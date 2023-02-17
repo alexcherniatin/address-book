@@ -18,4 +18,14 @@ class Utils
     {
         return (new DateTime())->setTimestamp($timestamp)->format($dateFormat);
     }
+
+    /**
+     * Get now timestamp
+     * 
+     * @return string 
+     */
+    public static function nowTimestamp(): string
+    {
+        return (new DateTime())->getTimestamp();
+    }
 }

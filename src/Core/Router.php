@@ -5,7 +5,7 @@ namespace AddressBook\Core;
 class Router
 {
     /**
-     * Boot application
+     * Simple router
      * 
      * @return void 
      */
