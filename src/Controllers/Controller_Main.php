@@ -1,15 +1,21 @@
 <?php
 
+use AddressBook\Builders\BookRecordsBuilder;
 use AddressBook\Core\Controller;
 use AddressBook\Core\View;
-use AddressBook\Models\BookRecord;
+use AddressBook\Models\BookRecords;
 
 class Controller_Main extends Controller
 {
     public function index()
     {
-        $model = new BookRecord();
-        
-        View::render('main/index');
+        View::render(
+            'main/index',
+            [
+                'bookRecordsList' => (new BookRecordsBuilder())->buildList(
+                    (new BookRecords())->all()
+                )
+            ]
+        );
     }
 }

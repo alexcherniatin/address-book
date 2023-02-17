@@ -1,7 +1,7 @@
 <?php
 
-use AddressBook\Models\BookRecord;
+use AddressBook\Models\BookRecords;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-(new BookRecord())->migrate();
+(new BookRecords())->migrate();
