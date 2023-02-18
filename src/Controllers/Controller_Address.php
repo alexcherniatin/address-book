@@ -67,7 +67,6 @@ class Controller_Address extends Controller
     /**
      * Create address /address/create/
      * 
-     * @return void 
      */
     public function create()
     {
@@ -76,7 +75,7 @@ class Controller_Address extends Controller
         }
 
         try {
-            (new BookRecordsService())->create($_POST, new BookRecordRequestValidator(new BookRecords()));
+            (new BookRecordsService(new BookRecords()))->create($_POST, new BookRecordRequestValidator(new BookRecords()));
         } catch (AddressBookException $th) {
             return $this->response(['message' => $th->getMessage(), 'field' => 'form'], 400);
         } catch (FormValidationException $th) {
@@ -91,7 +90,6 @@ class Controller_Address extends Controller
     /**
      * Update address /address/update/
      * 
-     * @return void 
      */
     public function update()
     {
@@ -100,7 +98,7 @@ class Controller_Address extends Controller
         }
 
         try {
-            (new BookRecordsService())->update($_POST, new BookRecordRequestValidator(new BookRecords(), BookRecordRequestValidator::ACTION_EDIT));
+            (new BookRecordsService(new BookRecords()))->update($_POST, new BookRecordRequestValidator(new BookRecords(), BookRecordRequestValidator::ACTION_EDIT));
         } catch (AddressBookException $th) {
             return $this->response(['message' => $th->getMessage(), 'field' => 'form'], 400);
         } catch (FormValidationException $th) {
@@ -115,7 +113,6 @@ class Controller_Address extends Controller
     /**
      * Delete address /address/delete/
      * 
-     * @return void 
      */
     public function delete()
     {
@@ -124,7 +121,7 @@ class Controller_Address extends Controller
         }
 
         try {
-            (new BookRecordsService())->delete($_POST, new BookRecordRequestValidator(new BookRecords(), BookRecordRequestValidator::ACTION_DELETE));
+            (new BookRecordsService(new BookRecords()))->delete($_POST, new BookRecordRequestValidator(new BookRecords(), BookRecordRequestValidator::ACTION_DELETE));
         } catch (AddressBookException $th) {
             return $this->response(['message' => $th->getMessage(), 'field' => 'form'], 400);
         } catch (FormValidationException $th) {

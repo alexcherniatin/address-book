@@ -152,10 +152,11 @@ class BookRecordRequestValidator extends AbstractValidator implements Validator
 
         $this->validatedData[$field] = $this->validateString(
             $this->data[$field],
-            FILTER_SANITIZE_SPECIAL_CHARS,
+            FILTER_SANITIZE_NUMBER_INT,
             'Numer telefonu',
             $field,
-            50
+            50,
+            9
         );
 
         //check is phone unique

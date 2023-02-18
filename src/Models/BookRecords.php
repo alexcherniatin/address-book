@@ -9,7 +9,7 @@ use AddressBook\Exceptions\AddressBookException;
 /**
  * Class for manipulating book records data in database
  */
-final class BookRecords extends Model
+class BookRecords extends Model
 {
     /**
      * Allowed table search fields

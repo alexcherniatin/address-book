@@ -10,6 +10,13 @@ use AddressBook\Models\BookRecords;
 
 class BookRecordsService
 {
+    private BookRecords $bookRecords;
+
+    public function __construct(BookRecords $bookRecords)
+    {
+        $this->bookRecords = $bookRecords;
+    }
+
     /**
      * Validate and create new book record
      *
@@ -25,7 +32,7 @@ class BookRecordsService
     {
         $validatedData = $validator->validate($data);
 
-        if (!(new BookRecords())->insert(
+        if (!$this->bookRecords->insert(
             new BookRecord(
                 null,
                 $validatedData['firstName'],
@@ -56,7 +63,7 @@ class BookRecordsService
     {
         $validatedData = $validator->validate($data);
 
-        if (!(new BookRecords())->update(
+        if (!$this->bookRecords->update(
             new BookRecord(
                 $validatedData['bookRecord']->id,
                 $validatedData['firstName'],
@@ -87,7 +94,7 @@ class BookRecordsService
     {
         $validatedData = $validator->validate($data);
 
-        if (!(new BookRecords())->delete($validatedData['bookRecord']->id)) {
+        if (!$this->bookRecords->delete($validatedData['bookRecord']->id)) {
             throw new AddressBookException("Wystąpił bląd przy usunięciu rekordu z bazy danych");
         }
     }

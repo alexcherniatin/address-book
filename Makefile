@@ -36,3 +36,9 @@ dc_down:
 
 app_bash:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bash
+
+test:
+	./vendor/bin/phpunit --verbose
+
+migrate:
+	php database/migrate.php

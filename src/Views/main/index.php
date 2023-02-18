@@ -8,8 +8,8 @@
                             <tr>
                                 <td>Imię</td>
                                 <td>Nazwisko</td>
-                                <td>Numer telefonu</td>
                                 <td>Adres e-mail</td>
+                                <td>Numer telefonu</td>
                                 <td>Adres fizyczny</td>
                                 <td>Data dodania</td>
                                 <td>Data modyfikacji</td>
