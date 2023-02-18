@@ -78,16 +78,28 @@ $(document).ready(function () {
 
                 setFormGlobalStatusHtml(formGlobalStatusInfo, data.message, 'success');
 
-                form[0].reset();
+                if (data.resetForm) {
+                    form[0].reset();
+                }
 
                 form.removeClass('was-validated');
             },
             error: function (data) {
                 buttonState(button, 'default');
 
+                if (data.responseJSON === undefined) {
+                    setFormGlobalStatusHtml(formGlobalStatusInfo, 'Wystąpił bląd', 'danger');
+                    return;
+                }
+
+                if (data.responseJSON.field === undefined) {
+                    setFormGlobalStatusHtml(formGlobalStatusInfo, (data.responseJSON.message === undefined) ? 'Wystąpił bląd' : data.responseJSON.message, 'danger');
+                    return;
+                }
+
                 const input = $(`[name="${data.responseJSON.field}"]`);
 
-                if (data.responseJSON.field === undefined || input.length === 0) {
+                if (input.length === 0) {
                     setFormGlobalStatusHtml(formGlobalStatusInfo, (data.responseJSON.message === undefined) ? 'Wystąpił bląd' : data.responseJSON.message, 'danger');
                     return;
                 }

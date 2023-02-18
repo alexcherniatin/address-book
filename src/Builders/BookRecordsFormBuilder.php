@@ -16,7 +16,15 @@ class BookRecordsFormBuilder
 
     public function form(string $action, ?BookRecord $bookRecord): string
     {
-        $submitButtonText = (\is_null($bookRecord)) ? 'Dodaj' : 'Zapisz zmiany';
+        if (\is_null($bookRecord)) {
+            $submitButtonText = 'Dodaj';
+
+            $idInput = '';
+        } else {
+            $submitButtonText = 'Zapisz zmiany';
+
+            $idInput = '<input type="hidden" name="id" value="' . $bookRecord->id . '">';
+        }
 
         return '
         <form action="' . $action . '" class="form row g-2 needs-validation" id="book-records-form" novalidate>
@@ -68,7 +76,7 @@ class BookRecordsFormBuilder
             <div class="form-info"></div>
 
             <div class="col-12">
-            
+                ' . $idInput . '
                 <button class="btn btn-primary" type="submit">
                     <span class="default-state">' . $submitButtonText . '</span>
 
