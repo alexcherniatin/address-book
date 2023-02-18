@@ -22,7 +22,7 @@ class Controller_Address extends Controller
             'address/add',
             [
                 'form' => (new BookRecordsFormBuilder())->form(
-                    '/adress/create/',
+                    '/address/create/',
                     null
                 )
             ]
