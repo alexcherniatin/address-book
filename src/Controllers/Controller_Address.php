@@ -12,7 +12,7 @@ use AddressBook\Validators\BookRecordRequestValidator;
 class Controller_Address extends Controller
 {
     /**
-     * Add address page /adress/add/
+     * Add address page /address/add/
      * 
      * @return void 
      */
@@ -46,5 +46,24 @@ class Controller_Address extends Controller
         }
 
         return $this->response(['message' => 'Adres dodano do książki adresowej']);
+    }
+
+    public function delete()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return $this->response(['message' => 'Method not allowed'], 405);
+        }
+
+        try {
+            (new BookRecordsService())->delete($_POST, new BookRecordRequestValidator(new BookRecords(), BookRecordRequestValidator::ACTION_DELETE));
+        } catch (AddressBookException $th) {
+            return $this->response(['message' => $th->getMessage(), 'field' => 'form'], 400);
+        } catch (FormValidationException $th) {
+            return $this->response(['message' => $th->getMessage(), 'field' => $th->getFormFieldName()], 400);
+        } catch (\Throwable $th) {
+            return $this->response(['message' => 'Wystąpił błąd'], 500);
+        }
+
+        return $this->response(['message' => 'Adres usunięto z książki adresowej']);
     }
 }

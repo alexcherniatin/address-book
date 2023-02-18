@@ -8,6 +8,12 @@ use AddressBook\Models\BookRecords;
 
 class BookRecordRequestValidator extends AbstractValidator implements Validator
 {
+    public const ACTION_ADD = 1;
+
+    public const ACTION_EDIT = 2;
+
+    public const ACTION_DELETE = 3;
+
     /**
      * Data to validate
      *
@@ -25,38 +31,38 @@ class BookRecordRequestValidator extends AbstractValidator implements Validator
     private BookRecords $model;
 
     /**
-     * Is edit flag
+     * Action type
      * 
-     * If true will validate existing record
-     *
-     * @var bool 
+     * @var int 
      */
-    private $isEdit = false;
+    private $actionType;
 
-    public function __construct(BookRecords $bookRecords, bool $isEdit = false)
+    public function __construct(BookRecords $bookRecords, int $actionType = self::ACTION_ADD)
     {
         $this->model = $bookRecords;
 
-        $this->isEdit = $isEdit;
+        $this->actionType = $actionType;
     }
 
     public function validate(array $data): array
     {
         $this->data = $data;
 
-        if ($this->isEdit) {
+        if (in_array($this->actionType, [self::ACTION_EDIT, self::ACTION_DELETE])) {
             $this->validateId();
         }
 
-        $this->validateFirstName();
+        if ($this->actionType !== self::ACTION_DELETE) {
+            $this->validateFirstName();
 
-        $this->validateLastName();
+            $this->validateLastName();
 
-        $this->validatePhone();
+            $this->validateEmail();
 
-        $this->validateEmail();
+            $this->validatePhone();
 
-        $this->validateAddress();
+            $this->validateAddress();
+        }
 
         return $this->validatedData;
     }
@@ -160,7 +166,7 @@ class BookRecordRequestValidator extends AbstractValidator implements Validator
             return;
         }
 
-        if ($this->isEdit && $bookRecord->id == ($this->data['id'] ?? -1)) {
+        if ($this->actionType === self::ACTION_EDIT && $bookRecord->id == ($this->data['id'] ?? -1)) {
             return;
         }
 
@@ -197,7 +203,7 @@ class BookRecordRequestValidator extends AbstractValidator implements Validator
             return;
         }
 
-        if ($this->isEdit && $bookRecord->id == ($this->data['id'] ?? -1)) {
+        if ($this->actionType === self::ACTION_EDIT && $bookRecord->id == ($this->data['id'] ?? -1)) {
             return;
         }
 

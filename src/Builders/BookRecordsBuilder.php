@@ -38,7 +38,7 @@ class BookRecordsBuilder
     {
         return '
         <tr>
-            <td colspan="8">Brak informacji <a href="/adress/add/" class="btn btn-primary">Dodaj adres</a></td>
+            <td colspan="8">Brak informacji <a href="/address/add/" class="btn btn-primary">Dodaj adres</a></td>
         </tr>';
     }
 
@@ -64,7 +64,17 @@ class BookRecordsBuilder
             <td>' . $bookRecord->address . '</td>
             <td>' . Utils::dateFromTimestamp($bookRecord->createdAt) . '</td>
             <td>' . $updatedAt . '</td>
-            <td></td>
+            <td class="list-actions">
+                <a href="/address/edit/' . $bookRecord->id . '/" class="btn btn-primary">Edycja</a>
+
+                <button type="button" data-id="' . $bookRecord->id . '" class="btn btn-danger delete-book-record">
+                    <span class="default-state">Usuń</span>
+
+                    <span class="loading-state d-none">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </span>
+                </button>
+            </td>
         </tr>';
     }
 }

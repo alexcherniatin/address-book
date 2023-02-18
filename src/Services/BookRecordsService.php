@@ -40,4 +40,24 @@ class BookRecordsService
             throw new AddressBookException("Wystąpił bląd przy dodaniu rekordu do bazy danych");
         }
     }
+
+    /**
+     * Validate and delete book record
+     *
+     * @param array $data Request data
+     * @param Validator $validator The object which implements Validator inteface
+     *
+     * @throws AddressBookException
+     * @throws FormValidationException
+     * 
+     * @return void 
+     */
+    public function delete(array $data, Validator $validator): void
+    {
+        $validatedData = $validator->validate($data);
+
+        if (!(new BookRecords())->delete($validatedData['bookRecord']->id)) {
+            throw new AddressBookException("Wystąpił bląd przy usunięciu rekordu z bazy danych");
+        }
+    }
 }

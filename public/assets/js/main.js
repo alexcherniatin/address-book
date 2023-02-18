@@ -118,4 +118,41 @@ $(document).ready(function () {
 
         element.removeClass('is-invalid');
     });
+
+    $(document).on("click", ".delete-book-record", function () {
+        const button = $(this);
+
+        if (!confirm("Jesteś pewny?")) {
+            return;
+        }
+
+        buttonState(button, 'loading');
+
+        $.ajax({
+            type: "POST",
+            url: "/address/delete/",
+            data: {
+                id: button.attr('data-id')
+            },
+            dataType: "json",
+            success: function (data) {
+                button.closest('tr').remove();
+
+                tableEmptyCheck();
+            },
+            error: function (data) {
+                buttonState(button, 'default');
+
+                alert((data.message === undefined) ? 'Wystąpił bląd' : data.message);
+            }
+        });
+    });
+
+    function tableEmptyCheck() {
+        const tbody = $('tbody');
+
+        if (tbody.children().length === 0) {
+            tbody.html(`<tr><td colspan="8">Brak informacji <a href="/address/add/" class="btn btn-primary">Dodaj adres</a></td></tr>`);
+        }
+    }
 });

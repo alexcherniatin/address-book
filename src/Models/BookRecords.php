@@ -143,4 +143,21 @@ final class BookRecords extends Model
         $result = $this->db->result();
         return ($result) ? BookRecord::fromArray($result) : null;
     }
+
+    /**
+     * Delete by id
+     *
+     * @param int $id The id of book record
+     *
+     * @return bool 
+     */
+    public function delete(int $id): bool
+    {
+        $query = "DELETE FROM book_records
+        WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind(':id', $id);
+        $result = $this->db->execute();
+        return $result;
+    }
 }

@@ -1,3 +1,8 @@
 .header{
     margin-bottom: 50px;
 }
+
+.list-actions{
+    display: flex;
+    gap: 10px;
+}
