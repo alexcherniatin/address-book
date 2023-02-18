@@ -5,7 +5,7 @@ namespace AddressBook\Services;
 use AddressBook\Core\Utils;
 use AddressBook\Core\Validator;
 use AddressBook\Dto\BookRecord;
-use AddressBook\Models\AddressBookException;
+use AddressBook\Exceptions\AddressBookException;
 use AddressBook\Models\BookRecords;
 
 class BookRecordsService
@@ -13,10 +13,11 @@ class BookRecordsService
     /**
      * Validate and create new book record
      *
-     * @param array $data Reqeust data
-     * @param Validato $validator Validator class
+     * @param array $data Request data
+     * @param Validator $validator The object which implements Validator inteface
      *
      * @throws AddressBookException
+     * @throws FormValidationException
      * 
      * @return void 
      */

@@ -4,6 +4,7 @@ namespace AddressBook\Models;
 
 use AddressBook\Core\Model;
 use AddressBook\Dto\BookRecord;
+use AddressBook\Exceptions\AddressBookException;
 
 /**
  * Class for manipulating book records data in database

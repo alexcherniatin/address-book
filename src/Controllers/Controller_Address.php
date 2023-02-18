@@ -1,8 +1,11 @@
 <?php
 
+use AddressBook\Builders\BookRecordsFormBuilder;
 use AddressBook\Core\Controller;
 use AddressBook\Core\View;
-use AddressBook\Models\AddressBookException;
+use AddressBook\Exceptions\AddressBookException;
+use AddressBook\Exceptions\FormValidationException;
+use AddressBook\Models\BookRecords;
 use AddressBook\Services\BookRecordsService;
 use AddressBook\Validators\BookRecordRequestValidator;
 
@@ -16,7 +19,13 @@ class Controller_Address extends Controller
     public function add(): void
     {
         View::render(
-            'address/add'
+            'address/add',
+            [
+                'form' => (new BookRecordsFormBuilder())->form(
+                    '/adress/create/',
+                    null
+                )
+            ]
         );
     }
 
@@ -27,9 +36,11 @@ class Controller_Address extends Controller
         }
 
         try {
-            (new BookRecordsService())->create($_POST, new BookRecordRequestValidator());
+            (new BookRecordsService())->create($_POST, new BookRecordRequestValidator(new BookRecords()));
         } catch (AddressBookException $th) {
-            return $this->response(['message' => $th->getMessage()], 400);
+            return $this->response(['message' => $th->getMessage(), 'field' => 'form'], 400);
+        } catch (FormValidationException $th) {
+            return $this->response(['message' => $th->getMessage(), 'field' => $th->getFormFieldName()], 400);
         } catch (\Throwable $th) {
             return $this->response(['message' => 'Wystąpił błąd'], 500);
         }
