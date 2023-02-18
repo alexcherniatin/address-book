@@ -38,6 +38,8 @@ final class BookRecordsTest extends TestCase
         );
 
         $this->assertIsNumeric(self::$createdRecordId);
+
+        $this->assertTrue(self::$createdRecordId > 0);
     }
 
     public function testRecordCanBeRetrievedByField(): void
