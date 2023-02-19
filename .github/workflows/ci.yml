@@ -12,11 +12,9 @@ jobs:
       - uses: php-actions/composer@v6
 
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@master
+        uses: php-actions/phpunit@3
         with:
           version: 9
-          php_version: 8.0.8
           php_extensions: pdo sqlite pdo_sqlite
           memory_limit: "256M"
-          bootstrap: vendor/autoload.php
           configuration: phpunit.xml
