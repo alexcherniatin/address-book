@@ -111,7 +111,7 @@ class BookRecords extends Model
     {
         $query = "SELECT id,first_name,last_name,address,phone,email,created_at,updated_at
         FROM book_records
-        ORDER BY id DESC
+        ORDER BY first_name, last_name
         LIMIT 500";
         $this->db->query($query);
         $result = $this->db->resultset();
