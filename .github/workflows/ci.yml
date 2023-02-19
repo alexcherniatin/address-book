@@ -12,7 +12,7 @@ jobs:
       - uses: php-actions/composer@v6
 
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@3
+        uses: php-actions/phpunit@v3
         with:
           version: 9
           php_extensions: pdo sqlite pdo_sqlite
