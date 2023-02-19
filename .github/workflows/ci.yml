@@ -15,6 +15,5 @@ jobs:
         uses: php-actions/phpunit@v3
         with:
           version: 9
-          php_extensions: pdo sqlite pdo_sqlite
           memory_limit: "256M"
           configuration: phpunit.xml
