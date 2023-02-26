@@ -1,4 +1,4 @@
-# Small Address Book PHP&SQLite project [Demo](https://book.srv43250.seohost.com.pl/)
+# Small Address Book PHP&SQLite project
 
 Created for skill testing and educational purposes in pure PHP without any framework or external PHP library (except PHPUnit).
 
